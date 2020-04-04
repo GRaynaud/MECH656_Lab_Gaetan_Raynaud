@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\geometry{letterpaper}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc} 
+\usepackage[french]{babel}
+\usepackage{graphicx} % Support for including images
+\usepackage[urlcolor = blue]{hyperref} % Support for hyperlinks
+%\hypersetup{hidelinks = False}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{siunitx}
+\usepackage{xcolor}
+%\sisetup{
+%    round-mode = figures,
+%    round-precision    = 3           ,
+%    scientific-notation = engineering
+%    }
+\usepackage{float}
+\usepackage{cancel}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{comment} 
+\usepackage{minted}
+\usepackage{tabularx}
+\usepackage{placeins}
+\renewcommand{\thesection}{\arabic{section}}
+\newcommand\pder[2][]{\ensuremath{\frac{\partial#1}{\partial#2}}} 
+\newcommand\pdder[2][]{\ensuremath{\frac{\partial^2 #1}{\partial#2^2}}} 
+\usepackage{bibentry}
+\nobibliography*
+%------------------------------------------------------------------
+% TITLE
+%------------------------------------------------------------------
+\title{
+
+\centerline{
+\begin{tabular}{lcr}
+    \includegraphics[width=0.4\textwidth]{images/poly}
+ &  & \includegraphics[width=0.5\textwidth]{images/McGillLogo.png}
+\end{tabular}
+}
+\vspace{0.2 cm}
+Laboratory Report\\
+\vspace{0.2cm}
+MECH 656\\
+\vspace{0.2cm}
+Fundamentals of Turbulent Flows 
+  }
+
+\author{
+    \begin{minipage}{0.6\textwidth}
+        \begin{center}
+            Gaétan \textsc{Raynaud} \\
+            2022063 - \texttt{gaetan.raynaud@polymtl.ca} \\
+            260964987 - \texttt{gaetan.raynaud@mail.mcgill.ca}
+        \end{center}
+    \end{minipage}
+}    
+
+\date{\today}
+
+
+%------------------------------------------------------------------
+% DOCUMENT START HERE
+%------------------------------------------------------------------
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+\section{Theoretical Background}
+
+\section{Experimental equipment and procedure}
+
+\subsection{Anemometer calibration}
+\begin{figure}
+    \centering
+    \input{images/FittingAnemometer_toLatex.pgf}
+    \caption{Calibration f King's Law coefficients $A = \num{8.44e-1}$ \si{V^2}, $B = \num{2.23e-1}$ \si{uSI} and $n=0.458$ with a L2-normalized residual rms $e_{rms} = \num{4.6e-4}$}
+    \label{fig:AnemometerFitting}
+\end{figure}
+
+%% Rappeler les valeurs dans un tableau synthétoqie et expliquer l'expression de l'erreur e_rms
+
+
+\section{Results}
+
+\begin{figure}
+    \centering
+        \resizebox{0.8\linewidth}{!}{\input{images/Mean_Velocity_profile.pgf}}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
+
+\section{Discussion}
+
+\section{Error Analysis}
+
+\section{Conclusions}
+
+\newpage
+% References
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
