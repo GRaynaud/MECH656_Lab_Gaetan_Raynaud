@@ -60,7 +60,7 @@ plt.ylabel('Mean velocity (m/s)')
 plt.xscale('log')
 plt.tight_layout()
 plt.savefig('Mean_Velocity_Profile.pgf')
-
+plt.close()
 # A comparer avec log law cf. Pope p.274
 
 # =============================================================================
@@ -73,7 +73,7 @@ plt.ylabel('u RMS (m/s)')
 plt.xscale('log')
 plt.tight_layout()
 plt.savefig('U_RMS_Profile.pgf')
-
+plt.close()
 # =============================================================================
 # Skewness profile
 # =============================================================================
@@ -84,3 +84,4 @@ plt.ylabel('Skewness $S_u$')
 plt.xscale('log')
 plt.tight_layout()
 plt.savefig('Skewness_Profile.pgf')
+plt.close()
