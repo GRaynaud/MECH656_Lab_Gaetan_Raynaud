@@ -46,7 +46,7 @@ def Custom_PDF(u,N_reg,f_LP=3e-3):
     F_reg = np.interp(x_reg, x, F)
 
     
-    # Step 4 : derivative of CFD --> PDF
+    # Step 4 : d/dx of CDF --> PDF
     dx = (x_reg[-1]-x_reg[0])/N_reg
     x_o = x_reg[:-1]
     f_o = np.diff(F_reg)/dx
