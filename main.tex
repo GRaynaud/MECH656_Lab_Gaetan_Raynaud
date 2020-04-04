@@ -78,7 +78,7 @@ Fundamentals of Turbulent Flows
 \subsection{Anemometer calibration}
 \begin{figure}
     \centering
-    \input{images/FittingAnemometer_toLatex.pgf}
+    \input{Python/FittingAnemometer_toLatex.pgf}
     \caption{Calibration f King's Law coefficients $A = \num{8.44e-1}$ \si{V^2}, $B = \num{2.23e-1}$ \si{uSI} and $n=0.458$ with a L2-normalized residual rms $e_{rms} = \num{4.6e-4}$}
     \label{fig:AnemometerFitting}
 \end{figure}
@@ -90,10 +90,28 @@ Fundamentals of Turbulent Flows
 
 \begin{figure}
     \centering
-        \resizebox{0.8\linewidth}{!}{\input{images/Mean_Velocity_profile.pgf}}
-    \caption{Caption}
-    \label{fig:my_label}
+        \resizebox{0.8\linewidth}{!}{\input{Python/Mean_Velocity_profile.pgf}}
+    \caption{Mean velocity profile displayed in a log-lin scale (dashed lines and orange points). Fitting with a log-law $\bar{U} = A\ln{y}+B$ with $A = \num{1.31}$ and $B=\num{3.25}$ with a normalized RMS error of \num{1.22e-2}}
+    \label{fig:Mean_Velocity_Profile}
 \end{figure}
+
+\begin{figure}
+    \centering
+        \resizebox{0.8\linewidth}{!}{\input{Python/U_RMS_Profile.pgf}}
+    \caption{RMS Profile plotted in log-lin scale}
+    \label{fig:RMS_Profile}
+\end{figure}
+
+\begin{figure}
+    \centering
+        \resizebox{0.8\linewidth}{!}{\input{Python/Skewness_Profile.pgf}}
+    \caption{Skewness profile $S_u$ displayed in log-lin scale}
+    \label{fig:Skewness_Profile}
+\end{figure}
+
+
+
+
 
 \section{Discussion}
 
