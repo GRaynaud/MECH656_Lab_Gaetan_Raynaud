@@ -1,0 +1,49 @@
+     ******************************************************
+     *                                                    *
+     *       Program ANALYSE_U has been launched.         *
+     *        Please, be sure that you're batch           *
+     *      file contains appropriate informations        *
+     *         otherwise the program will stop.           *
+     *                                                    *
+     ******************************************************
+Threating data on experiment held on 11mar2020        
+Here is the actual file name from where we will read data:
+     c:\data\spec2000.11mar2020                        
+ Number of block in data file:  100
+ Buffer's length: 4096
+ Number of different variables sampled: 1
+ The sampling frequency is:   8000.0
+          **********************************************
+          *                                            *
+          *         Now translating voltages to        *
+          *               real velocities              *
+          *              Data written into:            *
+           *  c:\results\U_series_spec2000              *
+          *                                            *
+          **********************************************
+          **********************************************
+          *                                            *
+          *        Now computing the average for       *
+          *         every variable in work file        *
+          *                                            *
+          **********************************************
+          **********************************************
+          *                                            *
+          *             MNTG is computing              *
+          *                  moments                   *
+          *                                            *
+          **********************************************
+          **********************************************
+          *                                            *
+          *          Now computing the power           *
+          *               spectrum of u                *
+          *                                            *
+          **********************************************
+The file name to which we will write data is:  
+specrsltfilnam.11mar2020.txt            
+     ******************************************************
+     *                                                    *
+     *          Program ANALYSE_U is finish.              *
+     *             It ran without errors!                 *
+     *                                                    *
+     ******************************************************

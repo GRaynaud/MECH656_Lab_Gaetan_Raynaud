@@ -1,0 +1,41 @@
+     ******************************************************
+     *                                                    *
+     *       Program ANALYSE_U has been launched.         *
+     *        Please, be sure that you're batch           *
+     *      file contains appropriate informations        *
+     *         otherwise the program will stop.           *
+     *                                                    *
+     ******************************************************
+Threating data on experiment held on 11mar2020        
+Here is the actual file name from where we will read data:
+     c:\data\pdf3000.11mar2020                         
+ Number of block in data file:   10
+ Buffer's length: 4096
+ Number of different variables sampled: 1
+ The sampling frequency is:    200.0
+          **********************************************
+          *                                            *
+          *         Now translating voltages to        *
+          *               real velocities              *
+          *              Data written into:            *
+           *  c:\results\U_series_pdf3000               *
+          *                                            *
+          **********************************************
+          **********************************************
+          *                                            *
+          *        Now computing the average for       *
+          *         every variable in work file        *
+          *                                            *
+          **********************************************
+          **********************************************
+          *                                            *
+          *             MNTG is computing              *
+          *                  moments                   *
+          *                                            *
+          **********************************************
+     ******************************************************
+     *                                                    *
+     *          Program ANALYSE_U is finish.              *
+     *             It ran without errors!                 *
+     *                                                    *
+     ******************************************************
