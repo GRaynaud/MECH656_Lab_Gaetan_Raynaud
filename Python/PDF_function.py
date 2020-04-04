@@ -74,7 +74,7 @@ x,f = Custom_PDF(U,N_reg,5e-2)
 # =============================================================================
 
 IntPDF = np.sum(f)*np.mean(np.diff(x))
-print('Integral PDF = %.4e' % (IntPDF))
+print('Integral PDF - 1. = %.2e' % (IntPDF-1.))
 
 
 # =============================================================================
@@ -83,5 +83,37 @@ print('Integral PDF = %.4e' % (IntPDF))
 Nbins = 100
 n_hist,u_hist,_ = plt.hist(U,bins=Nbins)
 plt.close()
-plt.plot(u_hist[:-1],n_hist*Nbins/(len(U)*(np.max(U)-np.min(U))))
-plt.plot(x,f)
+plt.plot(u_hist[:-1],n_hist*Nbins/(len(U)*(np.max(U)-np.min(U))),label='Numpy')
+plt.plot(x,f,label='Custom')
+plt.legend(title='method')
+plt.xlabel('Speed range $u$')
+plt.ylabel('PDF')
+plt.savefig('Comparison_PDF_Custom_Hist.pgf')
+
+# =============================================================================
+# Plot PDF @ 3 measurments points
+# =============================================================================
+
+listey = [0.20,5.50,20.]
+listeystr = ['020','550','2000']
+
+plt.figure()
+
+for k in range(3):
+    filename = 'TraitementDataSpec/U_series_spec'+listeystr[k]
+    U = np.genfromtxt(filename)
+    
+    N_reg = 1000
+    f_LP = 5e-2
+    
+    x,f = Custom_PDF(U,N_reg,f_LP)
+    
+    IntPDF = np.sum(f)*np.mean(np.diff(x))
+    print('Integral PDF - 1. = %.2e' % (IntPDF-1.))
+    
+    plt.plot(x,f,label=str(listey[k]))
+
+plt.legend(title='$y$ (mm)')
+plt.xlabel('Speed range $u$')
+plt.ylabel('PDF')
+plt.savefig('Dimensionnal_PDF.pgf')
