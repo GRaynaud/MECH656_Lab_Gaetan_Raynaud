@@ -8,6 +8,7 @@ Created on Sat Apr  4 13:42:22 2020
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
+import tikzplotlib
 
 def Custom_PDF(u,N_reg,f_LP=3e-3):
     '''
@@ -89,6 +90,7 @@ plt.legend(title='Method')
 plt.xlabel('Speed range $u$')
 plt.ylabel('PDF')
 plt.savefig('Comparison_PDF_Custom_Hist.pgf')
+tikzplotlib.save("Comparison_PDF_Custom_Hist.tex", encoding="utf-8")
 
 # =============================================================================
 # Plot PDF @ 3 measurments points
@@ -117,3 +119,5 @@ plt.legend(title='$y$ (mm)')
 plt.xlabel('Speed range $u$')
 plt.ylabel('PDF')
 plt.savefig('Dimensionnal_PDF.pgf')
+
+tikzplotlib.save("Dimensionnal_PDF.tex", encoding="utf-8")
