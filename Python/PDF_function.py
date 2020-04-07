@@ -90,7 +90,7 @@ plt.legend(title='Method')
 plt.xlabel('Speed range $u$')
 plt.ylabel('PDF')
 plt.savefig('Comparison_PDF_Custom_Hist.pgf')
-tikzplotlib.save("Comparison_PDF_Custom_Hist.tex", encoding="utf-8")
+tikzplotlib.save("Comparison_PDF_Custom_Hist.tex")#, encoding="utf-8")
 
 # =============================================================================
 # Plot PDF @ 3 measurments points
@@ -120,4 +120,4 @@ plt.xlabel('Speed range $u$')
 plt.ylabel('PDF')
 plt.savefig('Dimensionnal_PDF.pgf')
 
-tikzplotlib.save("Dimensionnal_PDF.tex", encoding="utf-8")
+tikzplotlib.save("Dimensionnal_PDF.tex")#, encoding="utf-8")
