@@ -42,15 +42,23 @@ u_kurt = T[:,7]
 
 # Log fitting
 def cost_fit(x):
-    mean_u_fit = x[0]*np.log10(y) + x[1]
+    mean_u_fit = x[0]*np.log(y) + x[1]
     return np.sqrt(np.mean(np.square(mean_u_fit-mean_U))/np.mean(np.square(mean_U)))
 res = scipy.optimize.minimize(cost_fit,[1,1])
 x = res.x
 yfit = np.linspace(np.min(y),np.max(y),1000)
-mean_u_fit = x[0]*np.log10(yfit) + x[1]
+mean_u_fit = x[0]*np.log(yfit) + x[1]
+
+
+# Log-law fitting
+k = 0.41
+a = 5.2
+ustar = x[0]*k
+nu = ustar*np.exp(-k*(x[1]/ustar-a))
 
 print('Log-law fitting with coefficients (%.3e,%.3e)'%(x[0],x[1]))
 print('Normalised residual RMS error : %.3e' % cost_fit(x))
+
 
 plt.figure()
 plt.plot(yfit,mean_u_fit)
