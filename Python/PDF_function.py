@@ -8,7 +8,15 @@ Created on Sat Apr  4 13:42:22 2020
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
-import tikzplotlib
+#import tikzplotlib
+
+
+plt.rc('text', usetex=True)
+plt.rc('font', family='serif')
+plt.rc('font', size=14)
+plt.rc('axes',titlesize=16)
+plt.rc('legend',fontsize=14)
+plt.rc('figure',titlesize=20)
 
 def Custom_PDF(u,N_reg,f_LP=3e-3):
     '''
@@ -87,8 +95,8 @@ plt.close()
 plt.plot(u_hist[:-1],n_hist*Nbins/(len(U)*(np.max(U)-np.min(U))),label='Numpy')
 plt.plot(x,f,label='Custom')
 plt.legend(title='Method')
-plt.xlabel('Speed range $u$')
-plt.ylabel('PDF')
+plt.xlabel('Speed range $u$ (m/s)')
+plt.ylabel('PDF (s/m)')
 plt.savefig('Comparison_PDF_Custom_Hist.pgf')
 #tikzplotlib.save("Comparison_PDF_Custom_Hist.tex")#, encoding="utf-8")
 
@@ -116,8 +124,8 @@ for k in range(3):
     plt.plot(x,f,label=str(listey[k]))
 
 plt.legend(title='$y$ (mm)')
-plt.xlabel('Speed range $u$')
-plt.ylabel('PDF')
+plt.xlabel('Speed range $u$ (m/s)')
+plt.ylabel('PDF (s/m)')
 plt.savefig('Dimensionnal_PDF.pgf')
 
-tikzplotlib.save("Dimensionnal_PDF.tex")#, encoding="utf-8")
+#tikzplotlib.save("Dimensionnal_PDF.tex")#, encoding="utf-8")

@@ -13,7 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.interpolate import splrep,splev
-import tikzplotlib
+#import tikzplotlib
 
 # =============================================================================
 # Acquisition des données
@@ -122,12 +122,13 @@ E_filt2000 = signal.filtfilt(bE2000,aE2000,E2000)
 
 
 plt.figure();
-plt.plot(K1_0020,F11_K1_0020,label='Raw F_11');
-plt.plot(K1_0020,F11_filt_0020,label='Filt. F_11');
-plt.plot(K0020,E_filt0020,label='Filt. E')
+plt.plot(K1_0020,F11_K1_0020,label='Raw $F_{11}$');
+plt.plot(K1_0020,F11_filt_0020,label='Filt. $F_{11}$');
+plt.plot(K0020,E_filt0020,label='Filt. $E$')
+plt.xlabel('$K_{11}$ - log scale ($m^{-1}$)')
 plt.legend()
 plt.xscale('log');plt.yscale('log')
-
+plt.savefig("Filetering_protocol.pgf")
 
 #tckE = splrep(K,E)
 #E_log = splev(Klog,tckE)
@@ -182,7 +183,7 @@ plt.xscale('log')
 plt.yscale('log')
 plt.legend(title='$y$ (mm)')
 plt.tight_layout()
-
+plt.savefig('F_11_comparison.pgf')
 
 #plt.figure()
 #plt.plot(K1_0020*eta0020,F11_filt_0020*np.power(nu,-5./4.)*np.power(epsilon0020,-1./4.), label='0.20')
@@ -207,3 +208,4 @@ plt.xscale('log')
 plt.yscale('log')
 plt.legend(title='$y$ (mm)')
 plt.tight_layout()
+plt.savefig('F_comparison.pgf')
