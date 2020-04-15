@@ -78,7 +78,7 @@ Fundamentals of Turbulent Flows
 \subsection{Anemometer calibration}
 \begin{figure}
     \centering
-    \input{Python/FittingAnemometer_toLatex.pgf}
+    \resizebox{0.6\linewidth}{!}{\input{Python/FittingAnemometer_toLatex.pgf}}
     \caption{Calibration of King's Law coefficients $A = \num{8.44e-1}$ \si{V^2}, $B = \num{2.23e-1}$ \si{uSI} and $n=0.458$ with a L2-normalized residual rms $e_{rms} = \num{4.6e-4}$}
     \label{fig:AnemometerFitting}
 \end{figure}
@@ -88,23 +88,25 @@ Fundamentals of Turbulent Flows
 
 \section{Results}
 
+In figure \ref{fig:Mean_Velocity_Profile} we represent the mean velocity profile in a log-lin scale with a fitting of the log-law performed on the central points. More precisely, the excluded points are the two first (sorted by $y$) since they visually are out of the region where most of the points seems aligned. At this point there is no numerical threshold yet because we need $u_*$ to ompute $y^+$. And one way of determining $u_*$ is using the log-law fitting. Moreover I chose not to take into account the four last points for the log-law fitting because their are located quite far beyond the empirical threshold $\eta = 0.3$. \\
+
 \begin{figure}
     \centering
-        \resizebox{0.8\linewidth}{!}{\input{Python/Mean_Velocity_profile.pgf}}
-    \caption{Mean velocity profile displayed in a log-lin scale (dashed lines and orange points). Fitting with a log-law $\bar{U} = A\ln{y}+B$ with $A = \num{1.31}$ and $B=\num{3.25}$ with a normalized RMS error of \num{1.22e-2}}
+        \resizebox{0.6\linewidth}{!}{\input{Python/Mean_Velocity_profile.pgf}}
+    \caption{Mean velocity profile displayed in a log-lin scale (dashed lines and orange points). Fitting with a log-law $\bar{U} = A\ln{y}+B$ with $A = \num{0.56}$ and $B=\num{3.22}$ with a normalized RMS error of \num{4.77e-3}}
     \label{fig:Mean_Velocity_Profile}
 \end{figure}
 
 \begin{figure}
     \centering
-        \resizebox{0.8\linewidth}{!}{\input{Python/U_RMS_Profile.pgf}}
+        \resizebox{0.6\linewidth}{!}{\input{Python/U_RMS_Profile.pgf}}
     \caption{RMS Profile plotted in log-lin scale}
     \label{fig:RMS_Profile}
 \end{figure}
 
 \begin{figure}
     \centering
-        \resizebox{0.8\linewidth}{!}{\input{Python/Skewness_Profile.pgf}}
+        \resizebox{0.6\linewidth}{!}{\input{Python/Skewness_Profile.pgf}}
     \caption{Skewness profile $S_u$ displayed in log-lin scale}
     \label{fig:Skewness_Profile}
 \end{figure}
@@ -121,6 +123,33 @@ Fundamentals of Turbulent Flows
 \end{figure}
 
 
+\begin{figure}
+    \centering
+    \begin{tabular}{ll}
+        a. & b. \\
+         \resizebox{0.47\linewidth}{!}{\input{Python/Filetering_protocol.pgf}} & \resizebox{0.47\linewidth}{!}{\input{Python/F_11_comparison.pgf}}
+    \end{tabular}
+    \caption{a. Illustration of the main stages of filtering and derivating $E$ from $F_{11}$. b. Comparison of the one-dimensional spectra $F_{11}$ at three locations $y$ in a dimensionless form (see T\&L)}
+    \label{fig:F11_filtering_and_comparison}
+\end{figure}
+
+As depicted on Fig. \ref{fig:F11_filtering_and_comparison}.a, the obtention of $E$ is not trivial. Theoreticcaly, according to Pope (eq. 6.217) and T\&L (eq. 8.1.13) one should obtain $E$
+ from one-dimensional spectrum $F_{11}$ in isotropic case with the relation :
+ 
+ \begin{equation}
+     E(k) = k^3 \frac{d}{dk} \left[ \frac{1}{k} \frac{dF_{11}(k)}{dk} \right]
+ \end{equation}
+ 
+ But derivation with respect to $k$ amplifies the noise in the spectrum which is distorted by the $1/k$ factor while derivating the second time. A filtering process is therefore required. The first is proceed on $F_{11}(k)$ on a linear scale both for x-axis $k$ and y-axis $F_{11}$. A 5\up{th}-order low pass numerical butterworth filter is used with a hand-tuned frequency cut. Then derivation is proceeded two times with a first order schema $dy/dx \approx (y(x_{k+1})-y(x_k))/(x_{k+1}-x_k)$. $E$ is finally filtered too with a similar filter but with changes in low-pass frequency.\\
+ 
+ 
+ 
+\begin{figure}
+    \centering
+    \resizebox{0.6\linewidth}{!}{\input{Python/F_comparison.pgf}}
+    \caption{Comparison of isotropic spectra $E$ at three positions $y$ with Kolmogorov $-5/3$ power spectrum law}
+    \label{fig:F_comparison}
+\end{figure}
 
 \section{Discussion}
 
