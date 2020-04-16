@@ -22,6 +22,7 @@
 \usepackage{booktabs}
 \usepackage{comment} 
 \usepackage{minted}
+\usepackage[ruled,vlined]{algorithm2e}
 \usepackage{tabularx}
 \usepackage{placeins}
 \renewcommand{\thesection}{\arabic{section}}
@@ -76,6 +77,11 @@ Fundamentals of Turbulent Flows
 \section{Experimental equipment and procedure}
 
 \subsection{Anemometer calibration}
+
+Measurements of speed are obtained with hot-wire anemometry technique. It consists of a very thin wire that is immersed in a fluid flow. An electric current goes through the wire and heat it up (Joule's effect). The temperature reached depends on the thermal dissipation by the flow (with a conductive and convective part) so that at a given current, each flow speed leads to a determined wire temperature. The narrowness of the wire might let us assume that the wire temperature reaches its equilibrium at a given flow speed before speed flow actually changes (so that we don't have to deal with time variation of temperature in the wire). This should nonetheless give a frequency threshold for time scale of speed variations that are shorter than the time scale of wire temperature variation.\\
+
+As a classical ohmic resistor, its resistance changes with its temperature. Measuring resistance variation from its usual value provide a way of computing speed changes. For instance Wheatstone bridge is a common electrical circuit for obtaining the resistance value through a tension measurement. Nonetheless, this relation between flow speed and voltage has to be determined empirically since it depends of the room temperature, usual resistance, geometry and materials properties of the wire... This is achieved with the calibration which results are presented on figure \ref{fig:AnemometerFitting}.\\ 
+
 \begin{figure}
     \centering
     \resizebox{0.6\linewidth}{!}{\input{Python/FittingAnemometer_toLatex.pgf}}
@@ -88,12 +94,44 @@ Fundamentals of Turbulent Flows
 
 \section{Results}
 
-In figure \ref{fig:Mean_Velocity_Profile} we represent the mean velocity profile in a log-lin scale with a fitting of the log-law performed on the central points. More precisely, the excluded points are the two first (sorted by $y$) since they visually are out of the region where most of the points seems aligned. At this point there is no numerical threshold yet because we need $u_*$ to ompute $y^+$. And one way of determining $u_*$ is using the log-law fitting. Moreover I chose not to take into account the four last points for the log-law fitting because their are located quite far beyond the empirical threshold $\eta = 0.3$. \\
+In figure \ref{fig:Mean_Velocity_Profile} we represent the mean velocity profile in a log-lin scale with a fitting of the log-law performed on the central points. More precisely, the excluded points are the two first (sorted by $y$) since they visually are out of the region where most of the points seems aligned.  Moreover I chose not to take into account the four last points for the log-law fitting because their are located quite far beyond the empirical threshold $\eta = 0.3$. \\
+
+At this point there is no numerical value for the threshold $y^+=30$ yet because we need $u_*$ to compute $y^+$. And one way of determining $u_*$ is using the log-law fitting. $u_*$ could also have been determined using the linear law in the very near region to the wall where $u^+ = y^+$ with a linear fitting of slope $\alpha$ and $u_* = \sqrt{\nu\alpha}$ but the imprecision is too high at this stage. Indeed the method using the log-law fitting gives $u_* = \num{2.30e-1} \si{m/s}$ while a fitting with the two first points of the linear law gives $u_*s = \num{1.53e-2} \si{m/s}$.\\
+
+The root-mean-square profile of average-free speed $u_{RMS}$ is plotted at figure \ref{fig:RMS_Profile} and the skewness $S_u$ is depicted at figure \ref{fig:Skewness_Profile} with :\\
+
+\begin{align}
+    u_{RMS} &= \sqrt{<\left(\tilde{u}-\bar{U}\right)^2>} \\
+    S_u &= \frac{<\left(\tilde{u}-\bar{U}\right)^3>}{u_{RMS}^3}
+\end{align}
+
+The probability density function (PDF) for the three locations is presented at figure \ref{fig:PDF}.b. It is obtained by a custom written function which is avalaible in the github repository. The PDF is obtained from the reconstruction of the CDF which is quite easy, following the method explained in algorithm \ref{algo:PDF}. It can be noted that steps 4 and 5 could be done in the inverse order. The filtering at step 5 uses the scientific \verb|Python| library \verb|scipy| with the zero-phase filtering function \verb|filtfilt| configured with a 3\up{rd}-order butterworth low-pass filter with hand-tuned frequency cut.\\
+
+\begin{algorithm}
+\label{algo:PDF}
+\caption{PDF calculation}
+\SetAlgoLined
+\KwResult{Return vectors $u_{PDF}$ and $PDF_u$}
+\textbf{Step 1} : get time series data $u$\;
+Sort in ascending order $u \rightarrow u_{sorted}$\;
+\textbf{Step 2} : Computing the CDF\;
+\For{$k = 0$ to length of $u_{sorted}$}{
+delete duplications of $u_{sorted}$'s values \;
+\If{$u_{sorted}[k] > u_{sorted}[k-1]$}{
+$u_{sorted}[k]$ is appended to $u_{PDF}$\;
+Relative position in sorted data $k/\textnormal{length}(u_{sorted})$ is appended to $CDF_u$\;
+}
+}
+\textbf{Step 3} : Interpolation of CDF on a regular range of $u_{CDF}$ to ease derivation and filtering\;
+\textbf{Step 4} : Derivation of CDF with respect to $u_{CDF} \rightarrow  PDF_u^{noisy}$\;
+\textbf{Step 5} : Denoising of PDF with a low-pass filter\;
+\end{algorithm}
+
 
 \begin{figure}
     \centering
         \resizebox{0.6\linewidth}{!}{\input{Python/Mean_Velocity_profile.pgf}}
-    \caption{Mean velocity profile displayed in a log-lin scale (dashed lines and orange points). Fitting with a log-law $\bar{U} = A\ln{y}+B$ with $A = \num{0.56}$ and $B=\num{3.22}$ with a normalized RMS error of \num{4.77e-3}}
+    \caption{Mean velocity profile displayed in a log-lin scale (dashed lines and orange points). Fitting with a log-law with a normalized RMS error of \num{4.77e-3}}
     \label{fig:Mean_Velocity_Profile}
 \end{figure}
 
@@ -129,11 +167,11 @@ In figure \ref{fig:Mean_Velocity_Profile} we represent the mean velocity profile
         a. & b. \\
          \resizebox{0.47\linewidth}{!}{\input{Python/Filetering_protocol.pgf}} & \resizebox{0.47\linewidth}{!}{\input{Python/F_11_comparison.pgf}}
     \end{tabular}
-    \caption{a. Illustration of the main stages of filtering and derivating $E$ from $F_{11}$. b. Comparison of the one-dimensional spectra $F_{11}$ at three locations $y$ in a dimensionless form (see T\&L)}
+    \caption{a. Illustration of the main stages of filtering and derivating $E$ from $F_{11}$. b. Comparison of the one-dimensional spectra $F_{11}$ at three locations $y$ in a dimensionless form (see \cite{tennekesFirstCourseTurbulence1972})}
     \label{fig:F11_filtering_and_comparison}
 \end{figure}
 
-As depicted on Fig. \ref{fig:F11_filtering_and_comparison}.a, the obtention of $E$ is not trivial. Theoreticcaly, according to Pope (eq. 6.217) and T\&L (eq. 8.1.13) one should obtain $E$
+As depicted on Fig. \ref{fig:F11_filtering_and_comparison}.a, the obtention of $E$ is not trivial. Theoreticcaly, according to \cite{popeTurbulentFlows2000a} (eq. 6.217) and \cite{tennekesFirstCourseTurbulence1972} (eq. 8.1.13) one should obtain $E$
  from one-dimensional spectrum $F_{11}$ in isotropic case with the relation :
  
  \begin{equation}
@@ -153,12 +191,58 @@ As depicted on Fig. \ref{fig:F11_filtering_and_comparison}.a, the obtention of $
 
 \section{Discussion}
 
+\subsection{Mean velocity log-law agreement}
+
+From a qualitative point of you, the agreement with the log-law in the inertial sublayer is very good and validated by the normalized error at a low level :\\
+
+\begin{equation}
+    \varepsilon_{RMS} = \sqrt{\frac{<\left( \bar{U} - u_{\textnormal{log-law}} \right)^2>}{<>\bar{U}^2}} = \num{4.77e-3}
+\end{equation}
+with 
+\begin{equation}
+    u_{\textnormal{log-law}} = A \ln{y} + B
+\end{equation}
+where $y$ is the dimensional distance from the wall (expressed in \si{m}). To determine the quantitative agreement with the universal constants of the log-law, we need to determine $u^*$ since we have 
+\begin{equation}
+    \frac{\bar{U}}{u_*} = \frac{1}{\kappa}\ln(\frac{y u_*}{\nu}) + a
+\end{equation}
+with the notation from \cite{tennekesFirstCourseTurbulence1972} (eq. 5.2.27). One way of determining it is considering $a$ and $\kappa$ as given and using them to determine $u_*$ and kinematic viscosity $\nu$ and compare it to standards values for air. This is achieved with the following relations :
+\begin{align}
+    u_* &= A\times \kappa \\
+    \nu &= u_* \exp \left[ -\kappa\left( \frac{B}{u_*} -a \right) \right]
+\end{align}
+
+Numerical values are summarized in table \ref{tab:NumValueLoglawFit}. It is complicated to compare the friction velocity $u_*$ with our available data but it seems to be in the same order of magnitude that $u_{RMS}$ in the central region. Besides, the kinematic viscosity of air derived from the log-law fitting is slightly lower than expected : around \num{1.5e-5} \si{m^2/s} at 1 \si{atm}. It is though in the right order of magnitude.\\
+
+\begin{table}[H]
+\caption{Numerical values for the log-law fitting}
+\vspace{5pt}
+    \centering
+    \begin{tabular}{@{}lcccccc@{}}
+        \toprule
+               & A & B & $\kappa$ & a & $u_*$ & $\nu$\\
+        \midrule
+          \textbf{Numerical value} & \num{5.62e-1} & \num{7.10} & \num{0.41} & \num{5.2} & \num{2.30e-1} & \num{6.27e-6} \\
+        \textbf{Unit} & \si{m/s} & \si{m/s} & - & - & \si{m/s} & \si{m^2/s} \\         
+        \bottomrule  
+    \end{tabular}
+    \label{tab:NumValueLoglawFit}
+\end{table}
+
+
+
+What seems to be the transition to viscous sublayer (or with a buffer layer) at low $y^+$ is less satisfying from a qualitative point of view. If we compare it to figure 5.6 in \cite{tennekesFirstCourseTurbulence1972} or Fig 7.20 in \cite{popeTurbulentFlows2000a} where speed $u^+$ drops quickly (graphically concave in log-lin scale),  in figure \ref{fig:Mean_Velocity_Profile}, the velocity profile seems to go rather convex at low distance from the wall. Moreover, when plotted on a linear scale, the straight line fitting with the 2 or 3 first points is far from being equal to 0 at $y^+ = 0$. \\ % Ajouter un plot en lin-lin
+
+The RMS speed profile plotted at figure \ref{fig:RMS_Profile} displays a maximum around $y = 0.25$ \si{mm}. This result could be expected from the following qualitative reasoning : near the wall, the no-slip condition implies that $\tilde{u} = 0$ so $u_{RMS} = 0$ too. As $u_{RMS} > 0$ and turbulence does it work, $u_{RMS}$ increases with $y$. But as it gets closer to the centre line, large scale gradients $S_{ij}$ get smaller and so does the production of turbulence's kinetic energy which explain why $u_{RMS}$ decreases when $\eta \rightarrow 1$.\\
+
+Skewness profile dpeicts a more complicated behaviour at figure \ref{fig:Skewness_Profile} but there is a few things to comment though. As Skewness is a measurement of the distorsion of speed values variation, a zero skewness value implies a symmetric PDF and it seems to occur at $y = 0.25$ \si{mm}, which appears to be the location of the maximum of $u_{RMS}$. If we look at the three curves depicted at figure \ref{fig:PDF}.b, blue solid line (representing the PDF at $y=0.2$ \si{mm}) depicts a density function that has a loss of balance on the right : values on the right side of the mean value are located farther than those on left side and so $S_u$ is positive. On the contrary, the green solid line (representing the PDF at $y=20$ \si{mm}) lacks of balance on the left where $S_u$ is negative.\\
+
 \section{Error Analysis}
 
 \section{Conclusions}
 
 \newpage
 % References
-\bibliographystyle{plain}
+\bibliographystyle{apalike}
 \bibliography{references}
 \end{document}
