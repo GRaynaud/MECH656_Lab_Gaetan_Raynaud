@@ -42,17 +42,17 @@ u_kurt = T[:,7]
 
 # Log fitting
 def cost_fit(x):
-    mean_u_fit = x[0]*np.log(y[2:-4]) + x[1]
+    mean_u_fit = x[0]*np.log(1e-3*y[2:-4]) + x[1]
     return np.sqrt(np.mean(np.square(mean_u_fit-mean_U[2:-4]))/np.mean(np.square(mean_U[2:-4])))
 res = scipy.optimize.minimize(cost_fit,[1,1])
 x = res.x
 yfit = np.linspace(np.min(y),np.max(y),1000)
-mean_u_fit = x[0]*np.log(yfit) + x[1]
+mean_u_fit = x[0]*np.log(yfit*1e-3) + x[1]
 
 
 def cost_lin(alpha):
-    mean_u_lin = alpha*y[:2]
-    return np.sqrt(np.mean(np.square((mean_u_lin - mean_U[:2])))/np.mean(np.square(mean_U[:2])))
+    mean_u_lin = alpha*y[:3]
+    return np.sqrt(np.mean(np.square((mean_u_lin - mean_U[:3])))/np.mean(np.square(mean_U[:3])))
 
 res_lin = scipy.optimize.minimize(cost_lin,[1.])
 alpha = res_lin.x[0]
