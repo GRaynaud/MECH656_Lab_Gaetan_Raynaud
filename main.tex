@@ -72,6 +72,12 @@ Fundamentals of Turbulent Flows
 
 \section{Introduction}
 
+From an engineering point of view, turbulence is most of the time problematic. Growth of turbulence turn usually to be an excitation for others phenomena, instability at a larger scale that can seriously damage the all structure and put life in danger. In terms of wall-bounded turbulence and more specifically channel flows, many examples are to be found in transport and energy sectors.\\
+
+One of the most thrilling engineering project lie in space race : a giant step has been taken dealing with the challenge of building a spacecraft carrying people with very few computing capabilities compared to today's ones. One of these challenges is to assure the stability of the rocket engine that propel reacting fluids at a tremendous Reynolds number which may induce pressure oscillations and then structural vibrations
+
+
+
 \section{Theoretical Background}
 
 \section{Experimental equipment and procedure}
@@ -233,9 +239,19 @@ Numerical values are summarized in table \ref{tab:NumValueLoglawFit}. It is comp
 
 What seems to be the transition to viscous sublayer (or with a buffer layer) at low $y^+$ is less satisfying from a qualitative point of view. If we compare it to figure 5.6 in \cite{tennekesFirstCourseTurbulence1972} or Fig 7.20 in \cite{popeTurbulentFlows2000a} where speed $u^+$ drops quickly (graphically concave in log-lin scale),  in figure \ref{fig:Mean_Velocity_Profile}, the velocity profile seems to go rather convex at low distance from the wall. Moreover, when plotted on a linear scale, the straight line fitting with the 2 or 3 first points is far from being equal to 0 at $y^+ = 0$. \\ % Ajouter un plot en lin-lin
 
+\subsection{Comments on Skewness and RMS speed profile}
+
 The RMS speed profile plotted at figure \ref{fig:RMS_Profile} displays a maximum around $y = 0.25$ \si{mm}. This result could be expected from the following qualitative reasoning : near the wall, the no-slip condition implies that $\tilde{u} = 0$ so $u_{RMS} = 0$ too. As $u_{RMS} > 0$ and turbulence does it work, $u_{RMS}$ increases with $y$. But as it gets closer to the centre line, large scale gradients $S_{ij}$ get smaller and so does the production of turbulence's kinetic energy which explain why $u_{RMS}$ decreases when $\eta \rightarrow 1$.\\
 
-Skewness profile dpeicts a more complicated behaviour at figure \ref{fig:Skewness_Profile} but there is a few things to comment though. As Skewness is a measurement of the distorsion of speed values variation, a zero skewness value implies a symmetric PDF and it seems to occur at $y = 0.25$ \si{mm}, which appears to be the location of the maximum of $u_{RMS}$. If we look at the three curves depicted at figure \ref{fig:PDF}.b, blue solid line (representing the PDF at $y=0.2$ \si{mm}) depicts a density function that has a loss of balance on the right : values on the right side of the mean value are located farther than those on left side and so $S_u$ is positive. On the contrary, the green solid line (representing the PDF at $y=20$ \si{mm}) lacks of balance on the left where $S_u$ is negative.\\
+Skewness profile depicts a more complicated behaviour at figure \ref{fig:Skewness_Profile} but there is a few things to comment though. As Skewness is a measurement of the distorsion of speed values variation, a zero skewness value implies a symmetric PDF and it seems to occur at $y = 0.25$ \si{mm}, which appears to be the location of the maximum of $u_{RMS}$. The global shape of $S_u$ is coherent with what can be found into literature as \cite{mathisRelationshipVelocitySkewness2011} for instance. If we look at the three curves depicted at figure \ref{fig:PDF}.b, blue solid line (representing the PDF at $y=0.2$ \si{mm}) depicts a density function that has a loss of balance on the right : values on the right side of the mean value are located farther than those on left side and so $S_u$ is positive. On the contrary, the green solid line (representing the PDF at $y=20$ \si{mm}) lacks of balance on the left where $S_u$ is negative.\\
+
+\subsection{Comments on density functions}
+
+
+PDF\\
+adimensionnalize by x-axis centered with $\frac{x-\mu}{\sigma}$ de moyenne nulle et de variance 1
+
+\subsection{Comments on spectra}
 
 \section{Error Analysis}
 
