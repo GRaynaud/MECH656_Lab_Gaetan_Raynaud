@@ -142,25 +142,44 @@ Further more we will introduce spectral analysis with tme and spatial Fourier tr
 
 
 
-As we expect a logarithmic evolution in the inertial sublayer, distance from the wall $y$ of the measurement points might be chosen wisely. Indeed there are few variations in the central region so it could be a waste of data to outnumber measurements there. The minimal distance is given by the hot-wire that cannot be infinitely close to the wall for practical reasons (its width and safety reasons). This $y_{min} = 0.13$ \si{mm}\\
+As we expect a logarithmic evolution in the inertial sublayer, distance from the wall $y$ of the measurement points might be chosen wisely. Indeed there are few variations in the central region so it could be a waste of data to outnumber measurements there. The minimal distance is given by the hot-wire that cannot be infinitely close to the wall for practical reasons (its width and safety reasons). This $y_{min} = 0.13$ \si{mm} gives a bound for an equal logarithmic distribution of 15 measurements as presented at figure \ref{fig:mes_points} that we would have chosen. Comparison is proposed with given points. We can remark that a compromise have been made for small scale behaviour (where a linear relation is to be found).\\
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\linewidth]{Python/Lab_mes_points_zoom.png}
+    \caption{Position of 15 hot wire measurement points on $y$ axis (log scale, millimetres). Given ones (blue superior lines) and equally distributed (lower orange lines) between $y_{min} = 0.13$ \si{mm} and $h = 30$ \si{mm}}
+    \label{fig:mes_points}
+\end{figure}
+
+At these 15 points will be sampled time series data for PDF determination. Besides at 3 of these points are provided larger data measurements (at higher sampling frequencies) so that a spectrum can be computed with a sufficient resolution.\\
+
+During the experiment, the channel fan is set to blow air at an approximate centre line velocity of $U_0 \sim 5$ \si{m/s} which correspond to a Reynolds number of $Re = U_0 D/\nu \sim \num{2e5}$. This is far above the threshold for a fully developed turbulence in a channel flow empirically located around $Re \sim 2900$. 
 
 
 \subsection{Anemometer calibration}
 
 Measurements of speed are obtained with hot-wire anemometry technique. It consists of a very thin wire that is immersed in a fluid flow. An electric current goes through the wire and heat it up (Joule's effect). The temperature reached depends on the thermal dissipation by the flow (with a conductive and convective part) so that at a given current, each flow speed leads to a determined wire temperature. The narrowness of the wire might let us assume that the wire temperature reaches its equilibrium at a given flow speed before speed flow actually changes (so that we don't have to deal with time variation of temperature in the wire). This should nonetheless give a frequency threshold for time scale of speed variations that are shorter than the time scale of wire temperature variation.\\
 
-As a classical ohmic resistor, its resistance changes with its temperature. Measuring resistance variation from its usual value provide a way of computing speed changes. For instance Wheatstone bridge is a common electrical circuit for obtaining the resistance value through a tension measurement. Nonetheless, this relation between flow speed and voltage has to be determined empirically since it depends of the room temperature, usual resistance, geometry and materials properties of the wire... This is achieved with the calibration which results are presented on figure \ref{fig:AnemometerFitting}.\\ 
+As a classical ohmic resistor, resistance of the wire changes with its temperature. Measuring resistance variation from its usual value provide a way of computing speed changes. For instance Wheatstone bridge is a common electrical circuit for obtaining the resistance value through a tension measurement. Nonetheless, this relation between flow speed and voltage has to be determined empirically since it depends of the room temperature, usual resistance, geometry and materials properties of the wire...\\
 
-\begin{figure}
+\begin{figure}[ht!]
     \centering
     \resizebox{0.6\linewidth}{!}{\input{Python/FittingAnemometer_toLatex.pgf}}
     \caption{Calibration of King's Law coefficients $A = \num{8.44e-1}$ \si{V^2}, $B = \num{2.23e-1}$ \si{uSI} and $n=0.458$ with a L2-normalized residual rms $e_{rms} = \num{4.6e-4}$}
     \label{fig:AnemometerFitting}
 \end{figure}
 
+This calibration is achieved with the calibration which results are presented on figure \ref{fig:AnemometerFitting} and obtained with \verb|Python|'s file \verb|CalibrationAnemometer.py|. It consists of a minimization process in $\mathbb{R}^3$ of parameters $A,B$ and $n$. For a set of data $y \in \mathbb{R}^p$, we minimize the following quantity : \\ 
+
+\begin{equation}
+    \min_{(A,B,n)\in\mathbb{R}^3} \frac{\sqrt{\frac{1}{p} \sum_{y} \left( E^2(y) - A - BU^n(y) \right)^2 }}{\sqrt{ \frac{1}{p} \sum \left( E^2\right)^2}}
+\end{equation}
+
+
+
 %% Rappeler les valeurs dans un tableau synthétoqie et expliquer l'expression de l'erreur e_rms
 
-
+\newpage
 \section{Results}
 
 In figure \ref{fig:Mean_Velocity_Profile} we represent the mean velocity profile in a log-lin scale with a fitting of the log-law performed on the central points. More precisely, the excluded points are the two first (sorted by $y$) since they visually are out of the region where most of the points seems aligned.  Moreover I chose not to take into account the four last points for the log-law fitting because their are located quite far beyond the empirical threshold $\eta = 0.3$. \\
@@ -306,13 +325,38 @@ What seems to be the transition to viscous sublayer (or with a buffer layer) at 
 
 The RMS speed profile plotted at figure \ref{fig:RMS_Profile} displays a maximum around $y = 0.25$ \si{mm}. This result could be expected from the following qualitative reasoning : near the wall, the no-slip condition implies that $\tilde{u} = 0$ so $u_{RMS} = 0$ too. As $u_{RMS} > 0$ and turbulence does it work, $u_{RMS}$ increases with $y$. But as it gets closer to the centre line, large scale gradients $S_{ij}$ get smaller and so does the production of turbulence's kinetic energy which explain why $u_{RMS}$ decreases when $\eta \rightarrow 1$.\\
 
-Skewness profile depicts a more complicated behaviour at figure \ref{fig:Skewness_Profile} but there is a few things to comment though. As Skewness is a measurement of the distorsion of speed values variation, a zero skewness value implies a symmetric PDF and it seems to occur at $y = 0.25$ \si{mm}, which appears to be the location of the maximum of $u_{RMS}$. The global shape of $S_u$ is coherent with what can be found into literature as \cite{mathisRelationshipVelocitySkewness2011} for instance. If we look at the three curves depicted at figure \ref{fig:PDF}.b, blue solid line (representing the PDF at $y=0.2$ \si{mm}) depicts a density function that has a loss of balance on the right : values on the right side of the mean value are located farther than those on left side and so $S_u$ is positive. On the contrary, the green solid line (representing the PDF at $y=20$ \si{mm}) lacks of balance on the left where $S_u$ is negative.\\
+Skewness profile depicts a more complicated behaviour at figure \ref{fig:Skewness_Profile} but there is a few things to comment though. As Skewness is a measurement of the distorsion of speed values variation, a zero skewness value implies a symmetric PDF and it seems to occur at $y = 0.25$ \si{mm}, which appears to be the location of the maximum of $u_{RMS}$. The global shape of $S_u$ is coherent with what can be found into literature as \cite{mathisRelationshipVelocitySkewness2011} for instance. If we look at the three curves depicted at figure \ref{fig:PDF}.b, blue solid line (representing the PDF at $y=0.2$ \si{mm}) depicts a density function that has a loss of balance on the right : values on the right side of the average are located farther than those on left side and so $S_u$ is positive. On the contrary, the green solid line (representing the PDF at $y=20$ \si{mm}) lacks of balance on the left where $S_u$ is negative.\\
 
 \subsection{Comments on density functions}
 
+According to figure \ref{fig:PDF}.a where the custom PDF function is compared to normalized histogram function from \verb|Numpy|'s library, our method and the chosen filtering seems to be valid. Moreover for the three PDF depicted at figure \ref{fig:PDF}.a, the integral minus 1 is kept under $1/N_{reg}$ where $N_{reg}$ is the length of the regular range of $u$ values on which is interpolated the CDF. From a practical point of view, the gap of PDF integral to unit is negligible for $N_{reg} \gtrsim 10^3$ an consolidate the presented approach.\\
 
-PDF\\
-adimensionnalize by x-axis centered with $\frac{x-\mu}{\sigma}$ de moyenne nulle et de variance 1
+One way of normaize the PDF axis to plot all the curves is to apply an affine transform on $u$-axis so that the new data are mean free and of standard deviation equal to 1. This can be summarized as :
+\begin{align}
+    x &\rightarrow \hat{x} = \frac{x - \overline{x}}{\sqrt{\overline{x^2}}} \\
+    PDF_x & \rightarrow PDF_{\hat{x}} = \sqrt{\overline{x^2}} PDF_x
+\end{align}
+
+As demonstrated in the final exam, the PDF has to be multiplied by standard deviation (which is here equal to $u_{rms}$) so that $\int PDF_x(x) dx = \int PDF_{\hat{x}}(\hat{x}) d\hat{x} = 1$.\\
+
+At table \ref{tab:DistribValuePDF} we compare distribution values obtained directly from the analysis program and those computed using data at centreline. We can notice that for the average and the root-mean-square mean-free velocity, the relative error to the analysis program is negligible. Nonetheless there is a quite noticeable difference for the skewness. Although the sign and the order of magnitude is good, having 15 percent of difference while $u_{rms}$ is below $0.1$ \% is a bit unexpected. We can try to explain this error by the fact that the extreme values taken by $u$ are "cut" while computing the PDF since there are values of $u$ that happen to be outside boundaries of the PDF $x$-axis that are mixed together with the boundary values. Moreover the 3\up{rd} power tends to increases the differences in comparison tu the square root of $u_{rms}$ that packed the distance. On the contrary, after having a look inside the \verb|Fortran| code source, the programm seems to compute the third central moment on the move, without interpolating data on a regular range.\\
+
+
+\begin{table}[H]
+\caption{Distribution values from CDF and analysis program at centreline}
+\vspace{5pt}
+    \centering
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+               & PDF & Analysis Program & Unit & Relative error\\
+        \midrule
+            $\overline{u}$ & \num{5.24} & \num{5.23} & \si{m/s} & 0.08 \% \\
+            $u_{rms}$ & \num{2.01e-1} & \num{2.01e-1} & \si{m/s} & 0.06 \% \\
+            $S_u$ & \num{-5.50e-1} & \num{-4.75e-1} & - & 15.7 \% \\
+        \bottomrule  
+    \end{tabular}
+    \label{tab:DistribValuePDF}
+\end{table}
 
 \subsection{Comments on spectra}
 
