@@ -9,6 +9,7 @@
 %\hypersetup{hidelinks = False}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{siunitx}
 \usepackage{xcolor}
 %\sisetup{
@@ -81,10 +82,68 @@ These problematic have justified a big amount of research on channel flows to un
 
 \section{Theoretical Background}
 
+This lab will address two major points in the theoretical predictions of turbulent flows : wall bounded shear layers and statistics of turbulence. \\
+\subsection{Wall bounded flow}
+
+Turbulent boundary layers reveals several characteristic length scales linked with different phenomena : from the geometrical length (channel's radius $h$), moving through the boundary layer thickness $\delta$ to the smallest scale where viscosity dominates, there is a continuous transition between ranges at which specific phenomena occur. A great amount of literature exists on this topic (see for instance \cite{tennekesFirstCourseTurbulence1972} and \cite{popeTurbulentFlows2000a}) and this introduction only aims at recalling the major results that will be discussed in the following sections.\\
+
+We will limit ourselves to an incompressible flow in an aerodynamically smooth channel. The considered fluid, air here, is of kinematic viscosity $\nu$ and density $\rho$. From the conservation equations of turbulent quantities, we can derive the shear stress evolution through the $y$ direction (radius direction) that is equal at the wall to
+\begin{equation}
+    \tau (y=0) = \tau_w = \rho \nu \left( \frac{d\bar{U}}{dy} \right)_{y=0}
+\end{equation}
+This quantity is the relevant scale near the wall since turbulent quantities such as $\overline{uv} \rightarrow 0$. It is used to define the typical velocity and length scale of viscosity effects :
+\begin{align}
+    u_* &= \sqrt{\tau_w/\rho} \\
+    \delta_\nu &= \nu/u_* \\
+\end{align}
+Near the wall we will therefore deal with $y^+$ and $u^+$ that are the $y$-distance to the wall and the $u$ turbulent velocity fluctuations made dimensionless by previous length scales : 
+
+\begin{align}
+    y^+ &= y/\delta_\nu \\
+    u^+ &= u/u_*
+\end{align}
+
+In the intermediate region where $ \delta_\nu << y << h$, we will use an other non-dimensionnalisation based on channel radius $h$ and mean-flow velocity at centre line $U_0$ :
+\begin{equation}
+    \eta = y/h
+\end{equation}
+
+The main results are that :
+\begin{enumerate}
+\item In the viscous sublayer, up to $y^+ \lesssim 5, ~ u^+ = y^+$
+\item In the inertial sublayer, where $y^+ >> 1$ and $\eta << 1$:
+\begin{align}
+    \frac{\bar{U}-U_0}{u_*} &= \frac{1}{\kappa}\ln(\eta) + B \\
+    \frac{\bar{U}}{u_*} &= \frac{1}{\kappa} \ln (y^+) + A
+\end{align}
+Where $A \approx 5.2$ and $\kappa \approx 0.41$ are universal whereas $B$ is flow-dependent.
+\end{enumerate}
+
+\subsection{Statistics of turbulence}
+
+Turbulence is a random process and may therefore be looked at using adapted tools from the field of statistics. These can classified in three groups : indicators of data distribution, spectral analysis and correlations detection. These two lasts often work together.\\
+
+We will consider random variables that are speeds values here, mainly $\tilde{u} = \overline{U} + u$ taking values in $\mathbb{R}$ with a probability function $P:\mathcal{P}(\mathbb{R})\rightarrow [0,1]$. Here $\bar{ ~ }$ will denote averaging and we define the cumulative distribution function $CDF$ and the Probability density function $PDF$ as :
+\begin{align}
+    CDF_u &: x \rightarrow P(u\leq x) \\
+    PDF_u &: x \rightarrow \frac{d}{dx}CDF_u (x)
+\end{align}
+
+We will also deal with $n$\up{th} order central  moment of the distribution defined as $\overline{u^n}$ which will allow us to find $u_{rms}$ ($n=2$), Skewness ($n=3$) or Kurtosis ($n=4$) with appropriate dimensionnalisation. \\
+
+Further more we will introduce spectral analysis with tme and spatial Fourier transform. We will then be able to extract the contribution of a phenomena, for instance kinetic energy of turbulence (TKE), from different scales, frequencies $f$ or wave numbers $\kappa$. For spatial transformation, one of the major prediction is to be found with Kolmogorov similarity hypothesis that state that these spectrum quantities at high Reynolds number only depend of fluid viscosity $\nu$ and dissipation rate of TKE $\varepsilon$ and are universal. And in the inertial sublayer, as viscosity effects are neglictable, these spectra should only depend on $\varepsilon$ (and $\kappa$). As no dimensionless quantity can be made out of $\varepsilon$ and $\kappa$, there must be a power law relation that can be determined with dimansional analysis.
 
 
 
 \section{Experimental equipment and procedure}
+
+
+\subsection{Context and measurement procedure}
+
+
+
+As we expect a logarithmic evolution in the inertial sublayer, distance from the wall $y$ of the measurement points might be chosen wisely. Indeed there are few variations in the central region so it could be a waste of data to outnumber measurements there. The minimal distance is given by the hot-wire that cannot be infinitely close to the wall for practical reasons (its width and safety reasons). This $y_{min} = 0.13$ \si{mm}\\
+
 
 \subsection{Anemometer calibration}
 
