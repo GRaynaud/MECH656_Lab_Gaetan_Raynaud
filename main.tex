@@ -337,7 +337,7 @@ One way of normaize the PDF axis to plot all the curves is to apply an affine tr
     PDF_x & \rightarrow PDF_{\hat{x}} = \sqrt{\overline{x^2}} PDF_x
 \end{align}
 
-As demonstrated in the final exam, the PDF has to be multiplied by standard deviation (which is here equal to $u_{rms}$) so that $\int PDF_x(x) dx = \int PDF_{\hat{x}}(\hat{x}) d\hat{x} = 1$.\\
+As demonstrated in the final exam, the PDF has to be multiplied by standard deviation (which is here equal to $u_{rms}$) so that $\int PDF_x(x) dx = \int PDF_{\hat{x}}(\hat{x}) d\hat{x} = 1$. From PDF we can get the CDF back by a basic integration as it is shown at figure \ref{fig:CDF_cl}.\\
 
 At table \ref{tab:DistribValuePDF} we compare distribution values obtained directly from the analysis program and those computed using data at centreline. We can notice that for the average and the root-mean-square mean-free velocity, the relative error to the analysis program is negligible. Nonetheless there is a quite noticeable difference for the skewness. Although the sign and the order of magnitude is good, having 15 percent of difference while $u_{rms}$ is below $0.1$ \% is a bit unexpected. We can try to explain this error by the fact that the extreme values taken by $u$ are "cut" while computing the PDF since there are values of $u$ that happen to be outside boundaries of the PDF $x$-axis that are mixed together with the boundary values. Moreover the 3\up{rd} power tends to increases the differences in comparison tu the square root of $u_{rms}$ that packed the distance. On the contrary, after having a look inside the \verb|Fortran| code source, the programm seems to compute the third central moment on the move, without interpolating data on a regular range.\\
 
@@ -357,6 +357,14 @@ At table \ref{tab:DistribValuePDF} we compare distribution values obtained direc
     \end{tabular}
     \label{tab:DistribValuePDF}
 \end{table}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{Python/CDF_cl.png}
+    \caption{Cumulative distribution function (CDF) computed from data at centreline ($y=30$ \si{mm})}
+    \label{fig:CDF_cl}
+\end{figure}
 
 \subsection{Comments on spectra}
 
