@@ -97,8 +97,7 @@ plt.plot(x,f,label='Custom')
 plt.legend(title='Method')
 plt.xlabel('Speed range $u$ (m/s)')
 plt.ylabel('PDF (s/m)')
-plt.savefig('Comparison_PDF_Custom_Hist.pgf')
-#tikzplotlib.save("Comparison_PDF_Custom_Hist.tex")#, encoding="utf-8")
+#plt.savefig('Comparison_PDF_Custom_Hist.pgf')
 
 # =============================================================================
 # Plot PDF @ 3 measurments points
@@ -126,6 +125,17 @@ for k in range(3):
 plt.legend(title='$y$ (mm)')
 plt.xlabel('Speed range $u$ (m/s)')
 plt.ylabel('PDF (s/m)')
-plt.savefig('Dimensionnal_PDF.pgf')
+#plt.savefig('Dimensionnal_PDF.pgf')
 
-#tikzplotlib.save("Dimensionnal_PDF.tex")#, encoding="utf-8")
+# =============================================================================
+# Estimate CDF from PDF @ CL
+# =============================================================================
+
+U_cl = np.genfromtxt('TraitementDataPDF/U_series_pdf3000')
+x_cl,PDF_cl = Custom_PDF(U_cl,1000,5e-2)
+CDF_cl = np.asarray([np.trapz(PDF_cl[:k],x_cl[:k]) for k in range(len(x_cl))])
+plt.figure()
+plt.plot(x_cl,CDF_cl,label='CDF')
+plt.xlabel('$u$ ($m/s$)')
+plt.ylabel('Probability')
+plt.savefig('CDF_cl.png')
