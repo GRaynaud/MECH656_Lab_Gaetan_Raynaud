@@ -35,7 +35,6 @@
 % TITLE
 %------------------------------------------------------------------
 \title{
-
 \centerline{
 \begin{tabular}{lcr}
     \includegraphics[width=0.4\textwidth]{images/poly}
@@ -110,13 +109,17 @@ In the intermediate region where $ \delta_\nu << y << h$, we will use an other n
 
 The main results are that :
 \begin{enumerate}
-\item In the viscous sublayer, up to $y^+ \lesssim 5, ~ u^+ = y^+$
+\item In the viscous sublayer, up to $y^+ \lesssim 5$ 
+\begin{equation}
+    u^+ = y^+
+    \label{eq:viscoussublayer}
+\end{equation}
 \item In the inertial sublayer, where $y^+ >> 1$ and $\eta << 1$:
 \begin{align}
-    \frac{\bar{U}-U_0}{u_*} &= \frac{1}{\kappa}\ln(\eta) + B \\
-    \frac{\bar{U}}{u_*} &= \frac{1}{\kappa} \ln (y^+) + A
+    \frac{\bar{U}-U_0}{u_*} &= \frac{1}{\kappa}\ln(\eta) + b \label{eq:inertialsublayer1} \\
+    \frac{\bar{U}}{u_*} &= \frac{1}{\kappa} \ln (y^+) + a \label{eq:inertialsublayer2}
 \end{align}
-Where $A \approx 5.2$ and $\kappa \approx 0.41$ are universal whereas $B$ is flow-dependent.
+Where $a \approx 5.2$ and $\kappa \approx 0.41$ are universal whereas $b$ is flow-dependent.
 \end{enumerate}
 
 \subsection{Statistics of turbulence}
@@ -184,7 +187,7 @@ This calibration is achieved with the calibration which results are presented on
 
 In figure \ref{fig:Mean_Velocity_Profile} we represent the mean velocity profile in a log-lin scale with a fitting of the log-law performed on the central points. More precisely, the excluded points are the two first (sorted by $y$) since they visually are out of the region where most of the points seems aligned.  Moreover I chose not to take into account the four last points for the log-law fitting because their are located quite far beyond the empirical threshold $\eta = 0.3$. \\
 
-At this point there is no numerical value for the threshold $y^+=30$ yet because we need $u_*$ to compute $y^+$. And one way of determining $u_*$ is using the log-law fitting. $u_*$ could also have been determined using the linear law in the very near region to the wall where $u^+ = y^+$ with a linear fitting of slope $\alpha$ and $u_* = \sqrt{\nu\alpha}$ but the imprecision is too high at this stage. Indeed the method using the log-law fitting gives $u_* = \num{2.30e-1} \si{m/s}$ while a fitting with the two first points of the linear law gives $u_*s = \num{1.53e-2} \si{m/s}$.\\
+At this point there is no numerical value for the threshold $y^+=30$ yet because we need $u_*$ to compute $y^+$. And one way of determining $u_*$ is using the log-law fitting. $u_*$ could also have been determined using the linear law in the very near region to the wall where $u^+ = y^+$ with a linear fitting of slope $\alpha$ and $u_* = \sqrt{\nu\alpha}$ but the imprecision is too high at this stage. Indeed the method using the log-law fitting gives $u_* = \num{2.30e-1} \si{m/s}$ while a fitting with the two first points of the linear law gives $u_* = \num{1.53e-2} \si{m/s}$.\\
 
 The root-mean-square profile of average-free speed $u_{RMS}$ is plotted at figure \ref{fig:RMS_Profile} and the skewness $S_u$ is depicted at figure \ref{fig:Skewness_Profile} with :\\
 
@@ -290,7 +293,7 @@ with
 \begin{equation}
     u_{\textnormal{log-law}} = A \ln{y} + B
 \end{equation}
-where $y$ is the dimensional distance from the wall (expressed in \si{m}). To determine the quantitative agreement with the universal constants of the log-law, we need to determine $u^*$ since we have 
+where $y$ is the dimensional distance from the wall (expressed in \si{m}). To determine the quantitative agreement with the universal constants of the log-law, we need to determine $u_*$ since we have 
 \begin{equation}
     \frac{\bar{U}}{u_*} = \frac{1}{\kappa}\ln(\frac{y u_*}{\nu}) + a
 \end{equation}
@@ -320,6 +323,26 @@ Numerical values are summarized in table \ref{tab:NumValueLoglawFit}. It is comp
 
 
 What seems to be the transition to viscous sublayer (or with a buffer layer) at low $y^+$ is less satisfying from a qualitative point of view. If we compare it to figure 5.6 in \cite{tennekesFirstCourseTurbulence1972} or Fig 7.20 in \cite{popeTurbulentFlows2000a} where speed $u^+$ drops quickly (graphically concave in log-lin scale),  in figure \ref{fig:Mean_Velocity_Profile}, the velocity profile seems to go rather convex at low distance from the wall. Moreover, when plotted on a linear scale, the straight line fitting with the 2 or 3 first points is far from being equal to 0 at $y^+ = 0$. \\ % Ajouter un plot en lin-lin
+
+If we recall that $u_*$ is defined as $u_* = \sqrt{\tau_w/\rho}$, determining the \textbf{wall shear stress} $\tau_w$ is equivalent to estimate $u_*$. This have been talked about previously but let's sum up three methods for getting it :
+\begin{enumerate}
+    \item Fitting the linear law in the viscous sublayer, i.e. finding $\alpha \in \mathbb{R}$ such as $\bar{U} = \alpha y$ (m/s). Then as we know from equation \ref{eq:viscoussublayer} that $\bar{U}/u_* = yu_*/\nu$ one can obtain $u_*$ from 
+    \begin{equation}
+        u_* = \sqrt{\alpha \nu}
+    \end{equation}
+    \item Fitting the log-law in the inertial sublayer in dimensional form, i.e. finding $(A,B) \in \mathbb{R}^2$ such as $\overline{U} = A \ln y + B$ (m/s). Then using equation \ref{eq:inertialsublayer1} given in $\eta$, we have the equality of slope :
+    \begin{equation}
+        u_* = A\kappa
+    \end{equation}
+    \item Using the same fitting of the log-law in a dimensional form than previously, we can take advantage of the universality of $a \approx 5.2$. According to equation \ref{eq:inertialsublayer2}, 
+    $$\bar{U} = u_* \left( \frac{1}{\kappa}\ln y + a + \frac{1}{\kappa}\ln(u_*/\nu) \right) = A \ln y +  B$$ 
+    So we can solve the implicit equation in $u_*$ on the constant part :
+    \begin{equation}
+        B = u_*\left( a + \frac{1}{\kappa} \ln \left( \frac{u_*}{\nu} \right) \right)
+    \end{equation}
+\end{enumerate}
+
+Previously we have chosen the second possibility because it seems to be the most adequate in our case : no need of knowing precisely the actual value of viscosity of the fluid (which varies significantly with temperature...). Moreover we did not have a sufficient number of points for a fitting in the viscous sublayer (option 1).
 
 \subsection{Comments on Skewness and RMS speed profile}
 
@@ -367,6 +390,8 @@ At table \ref{tab:DistribValuePDF} we compare distribution values obtained direc
 \end{figure}
 
 \subsection{Comments on spectra}
+
+The matching of curves from different locations at figure \ref{fig:F11_filtering_and_comparison}.b seems to agree with Kolmogorov's predictions on universal laws of turbulence at small scales. The three one dimensional spectra fits very properly the one with the other after being made dimensionless using $\kappa^* = \kappa \eta$ and $F_{11}^*$ from $F_{11}$ using viscosity and dissipation rate. Concerning three dimensional spectra $E$ made dimensionless at figure \ref{fig:F_comparison}, the many operations to obtain it may have altered a bit the signal. Nevertheless, there is a range for $\kappa \gtrsim 7e-2$ where the three spectra match pretty well. That being said, the slope in this range seems to be slightly greater (in absolute value) than the $-5/3$ Kolmogorov's prediction.
 
 \section{Error Analysis}
 
