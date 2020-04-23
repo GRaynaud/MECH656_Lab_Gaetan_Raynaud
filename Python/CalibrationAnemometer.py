@@ -50,13 +50,7 @@ print('A = %.3e - B = %.3e - n = %.3e'%(A,B,n))
 
 Ufit = np.linspace(np.min(U),np.max(U),1000)
 
-#matplotlib.use("pgf")
-#matplotlib.rcParams.update({
-#    "pgf.texsystem": "pdflatex",
-#    'font.family': 'serif',
-#    'text.usetex': True,
-#    'pgf.rcfonts': False,
-#})
+
 
 plt.figure()
 plt.plot(U,Esquare,linestyle='none',marker='s',label='Provided data')

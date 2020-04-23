@@ -13,7 +13,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.interpolate import splrep,splev
-#import tikzplotlib
+
 
 # =============================================================================
 # Acquisition des données
@@ -84,9 +84,7 @@ K0550 = K1_0550[:-2]
 dK2000 = np.mean(np.diff(K1_2000))
 K2000 = K1_2000[:-2]
 
-#Klog = np.logspace(np.log10(np.min(K1)),np.log10(np.max(K1)),len(K))
-#tck = splrep(K1,F11_K1)
-#F11_Klog = splev(Klog,tck) 
+
 # =============================================================================
 # Filtrage de F11_K1
 # =============================================================================
@@ -131,13 +129,6 @@ plt.xscale('log');plt.yscale('log')
 plt.tight_layout()
 plt.savefig("Filetering_protocol.pgf")
 
-#tckE = splrep(K,E)
-#E_log = splev(Klog,tckE)
-#E_filt = np.exp(signal.filtfilt(bE,aE,np.log(E_log)))
-
-#E = np.power(Klog[:-2],3.)*np.diff( (1./Klog[:-1])*np.diff(F11_filt)/np.diff(Klog))/np.diff(Klog[:-1])
-#Efilt = np.exp(signal.filtfilt(b,a,np.log10(E))*np.log(10))
-#plt.figure();plt.plot(Klog[:-1],E);plt.plot(K1,F11_K1);plt.plot(Klog,F11_filt);plt.xscale('log');plt.yscale('log')
 # =============================================================================
 # Calcul epsilon
 # =============================================================================
@@ -171,8 +162,6 @@ F11star2000 = F11_K1_2000*np.power(nu,-5./4.)*np.power(epsilon2000,-1./4.)
 F2000 = E_filt2000*np.power(nu,-5./4.)*np.power(epsilon2000,-1./4.)
 Kstar2000 = K2000*eta2000
 
-#Kstarlog = np.logspace(np.log10(np.min(Kstar)),np.log10(np.max(Kstar)))
-#F_Kolmogorov = 0.5*np.power(epsilon,2./3.)*np.power(Kstarlog,-5./3.)*np.power(nu,-5./4.)*np.power(epsilon,-1./4.)
 
 plt.figure()
 plt.plot(K1_0020*eta0020,F11star0020, label='0.20')
@@ -186,16 +175,6 @@ plt.legend(title='$y$ (mm)')
 plt.tight_layout()
 plt.savefig('F_11_comparison.pgf')
 
-#plt.figure()
-#plt.plot(K1_0020*eta0020,F11_filt_0020*np.power(nu,-5./4.)*np.power(epsilon0020,-1./4.), label='0.20')
-#plt.plot(K1_0550*eta0550,F11_filt_0550*np.power(nu,-5./4.)*np.power(epsilon0550,-1./4.), label='5.50')
-#plt.plot(K1_2000*eta2000,F11_filt_2000*np.power(nu,-5./4.)*np.power(epsilon2000,-1./4.), label='20.00')
-#plt.xlabel('Kstar')
-#plt.ylabel('F11 star')
-#plt.xscale('log')
-#plt.yscale('log')
-#plt.legend(title='$y$ (mm)')
-#plt.tight_layout()
 
 t=5.
 
@@ -211,4 +190,4 @@ plt.xscale('log')
 plt.yscale('log')
 plt.legend(title='$y$ (mm)')
 plt.tight_layout()
-plt.savefig('F_comparison.pgf')
+#plt.savefig('F_comparison.pgf')
