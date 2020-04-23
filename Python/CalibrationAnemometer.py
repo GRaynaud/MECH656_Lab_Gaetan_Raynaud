@@ -12,7 +12,7 @@ Created on Wed Apr  1 10:54:55 2020
 import numpy as np
 import scipy.optimize
 import matplotlib.pyplot as plt
-import matplotlib
+
 # =============================================================================
 # Data importation
 # =============================================================================

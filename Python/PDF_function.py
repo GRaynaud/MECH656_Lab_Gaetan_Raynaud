@@ -99,7 +99,7 @@ plt.ylabel('PDF (s/m)')
 #plt.savefig('Comparison_PDF_Custom_Hist.pgf')
 
 # =============================================================================
-# Plot PDF @ 3 measurments points
+# Plot PDF @ 3 measurment points
 # =============================================================================
 
 listey = [0.20,5.50,20.]
