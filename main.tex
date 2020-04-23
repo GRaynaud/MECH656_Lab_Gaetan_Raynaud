@@ -72,11 +72,11 @@ Fundamentals of Turbulent Flows
 
 \section{Introduction}
 
-From an engineering point of view, turbulence is most of the time problematic. Growth of turbulence turns usually to be an excitation for others phenomena, instability at a larger scale that can seriously damage the entire structure and put lives in danger. In terms of wall-bounded turbulence and more specifically channel flows, many examples are to be found in transport and energy sectors.\\
+From an engineering point of view, turbulence is most of the time problematic. Growth of turbulence turns usually to be an excitation for others phenomena, instabilities at a larger scale that can seriously damage the entire structure and put lives in danger. In terms of wall-bounded turbulence and more specifically channel flows, many examples are to be found in transport and energy sectors.\\
 
 One of the most thrilling engineering project lie in space race : a giant step has been taken dealing with the huge task of building a spacecraft carrying people with very few computing capabilities compared to today's ones. One of these challenges is to assure the stability of the rocket engine that propel reacting fluids at a tremendous Reynolds number that may induce pressure oscillations and then structural vibrations \cite{strahleTurbulenceGeneratedPressureFluctuations1981}. Turbulent-induced vibrations is indeed a worrying problem that faced nuclear engineering too \cite{weaverFlowInducedVibrationsPower2000}. \\
 
-These problematic have justified a big amount of research on channel flows to understand and verifies the theoretic predictions like we modestly do in this lab report, as well as fit some turbulent models. Today research is still conducted on turbulent wall-bounded flows but with some positive insights on turbulence : energy harvesting fro instance \cite{goushchaEnergyHarvestingProspects2015}.\\
+These problematic have justified a big amount of research on channel flows to understand and verifies the theoretic predictions like we modestly do in this lab report, as well as fit some turbulent models. Today research is still conducted on turbulent wall-bounded flows but with some positive insights on turbulence : energy harvesting for instance \cite{goushchaEnergyHarvestingProspects2015}.\\
 
 
 \section{Theoretical Background}
@@ -395,14 +395,31 @@ The matching of curves from different locations at figure \ref{fig:F11_filtering
 
 \section{Error Analysis}
 
-We propose a brief overview of error analysis in this section. Since our results come from measurements that are processed sometimes quite a lot, it can be interesting to keep in mind the different sources of errors. We can separate them in three groups : the errors that are inherent of the studied phenomena, the ones that comes from the data acquisition and finally the propagation of this error through data processing.\\
+We propose a brief overview of error analysis in this section. For further analysis one can have a look at \cite{derksenCalibrationErrorMeasurement1995}. Since our results come from measurements that are processed sometimes quite a lot, it can be interesting to keep in mind the different sources of errors. We can separate them in three groups : the errors that are inherent of the studied phenomena, the ones that comes from the data acquisition and finally the propagation of this error through data processing.\\
 
+Measurement of statistical values of a flow deals directly with the random characteristic of turbulence. Turbulent fluctuations of velocity and pressure are characterized by the width of the probability density function. The RMS value of velocity is therefore a good clue to represent the level of randomness. But there are other random process than turbulence like noise in the flow (at lower scales than Kolmogorov's micro scale) as well as in resistances and electronic devices (temperature fluctuations described by statistical physics theory). The difficulty that brings this kind of noise is to be found in the width of its spectrum which can make it difficult to delete. Moreover as we look at amplified tiny variations of the hot-wire resistance, one should verify that the ratio of noise versus resistance fluctuations due to turbulent intermittency stays at reasonable values. We also discussed previously about the fact that hot-wire anemometry requires the assumption of a negligible heat capacity so that the change of wire temperature is faster that the change of ambient turbulent velocity. Finally we have to take into account the duration of measurement which will be critical in the averaging process.\\
 
+The measurement procedure involves several large scale uncertainties. First the King's Law constants are calibrated with a specific precision and we could characterized the precision of this fitting with the residual error in the optimisation process discussed earlier. Moreover this whole calibration is given for a reference room's temperature that might change during the experiment. Otherwise, not only the measurement itself is crucial but also the position $y$ at which it is carried out reveals an uncertainty that can affect the log-law fitting for instance. This uncertainty depends on the tool used to position it at the desired distance from the wall. As we go to a distance $\sim 0.13$ \si{mm}, we may think that the uncertainty is around $\sim 0.01$ \si{mm}. But the experimenter attention is the most critical part here. Finally the conversion from an analog signal to a discretized, sampled and rounded digital one results in a loss of information.\\
+
+To obtain values of interest from the raw measurements, we carried out lots of mathematical operations : multiplication, power, integral, averaging... that have a direct effect on the uncertainty propagation. There are general conventions to compute the propagation for each operations, as using chain rule derivation for instance. These methods can be found easily in literature. 
+
+\newpage
 
 \section{Conclusions}
 
 
-The entire code will be available on the Github : ..... You will find \verb|Python|'s script in the \verb|Python| folder. with in particular the following useful files :
+
+Although we were not able to carry out this laboratory session due to the unfortunate circumstances, the analysis part of this report dealt with the empirical verification of several theoretical predictions on turbulent boundary layers and universal turbulent behaviours and gave an insight on the work required to understand, model and predict turbulent phenomena. \\
+
+Today's mechanics see new methods using data approachs
+
+The entire code will be available on the Github :
+\begin{center}
+    \href{https://github.com/GRaynaud/MECH656_Lab_Gaetan_Raynaud}{github.com/GRaynaud/MECH656\_Lab\_Gaetan\_Raynaud}
+
+\end{center}
+
+You will find \verb|Python|'s script in the \verb|Python| folder. Especially you might be interested in the following files :
 \begin{enumerate}
     \item \verb|CalibrationAnemometer.py| that computes and displays King's Law constant
     \item \verb|PDF_function.py| that defines the custom PDF function and uses it for the required computations
